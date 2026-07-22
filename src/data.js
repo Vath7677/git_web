@@ -87,7 +87,7 @@ export const gitLessons = [
   },
   {
     id: "delete",
-    title: "4. Delete When Change",
+    title: "4. Undoing Changes",
     sections: [
       {
         subtitle: "Restore Files",
