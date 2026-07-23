@@ -2,7 +2,7 @@ export const gitLessons = [
   {
     id: "intro",
     title: "Introduction & Installation",
-    description: "Git is a Distributed Version Control System used to track changes in source code during software development.",
+    description: "Git is a smart tool that tracks every change you make to your code. Think of it as a time machine and a safe backup system that lets you experiment without fear, fix mistakes instantly, and work with a team without overwriting each other's files.",
     sections: [
       {
         subtitle: "Install on Mac",
