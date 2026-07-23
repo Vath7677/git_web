@@ -200,5 +200,50 @@ export const gitLessons = [
         ]
       }
     ]
-  }
+  },
+
+  {
+    id: "collaboration",
+    title: "10. Team Collaboration Workflow & Roles",
+    description: "When working in a team, Git requires a clear division of responsibilities to prevent code conflicts. Here is the exact step-by-step workflow for the Project Leader and Teammates.",
+    sections: [
+      {
+        subtitle: "1. Project Leader — Repository Setup",
+        text: "The Project Leader is responsible for initializing the core project on their local Mac, pushing the first version to GitHub, and granting repository access to the rest of the team.",
+        commands: [
+          { 
+            code: "git init\ngit add .\ngit commit -m \"Initial project setup\"\ngit remote add origin <repo-URL>\ngit push -u origin main", 
+            desc: "Initialize the project locally on your Mac, stage all files, commit them, connect to the remote GitHub repo, and push the initial codebase." 
+          },
+          { 
+            code: "GitHub Repo -> Settings -> Collaborators -> Add people", 
+            desc: "Invite teammates: Go to your project repository on GitHub, click Settings, select 'Collaborators', and invite teammates using their GitHub username or email so they have push/pull permissions." 
+          }
+        ]
+      },
+      {
+          subtitle: "2. Teammates — Cloning & Synchronizing",
+          text: "Teammates download the project repository first, set up their identity configuration, generate secure SSH access keys, and then follow the daily synchronization loop.",
+          commands: [
+            { 
+              code: "git clone <repository-URL>", 
+              desc: "Step 1 (Git Clone): Pull/download the entire shared project from GitHub directly onto your local machine so you have all the files." 
+            },
+            { 
+              code: "git config --global user.name \"Your Name\"\ngit config --global user.email \"your.email@example.com\"", 
+              desc: "Step 2 (Git Config): Define your name and email so the project leader and teammates can clearly track who authored specific commits." 
+            },
+            { 
+              code: "ssh-keygen -t ed25519 -C \"your.email@example.com\"", 
+              desc: "Step 3 (Create SSH Key): Generate your SSH key and paste the public key (~/.ssh/id_ed25519.pub) into GitHub Settings -> SSH and GPG keys. This gives your machine secure cryptographic permission to pull and push changes." 
+            },
+            { 
+              code: "git pull origin main\n# ... make your code changes and commit ...\ngit push origin main", 
+              desc: "Step 4 (Daily Collaboration Loop): Always run `git pull` BEFORE starting work to grab the newest updates from your team. Once your changes are staged and committed, run `git push` to send your work back to GitHub smoothly." 
+            }
+          ]
+        }
+      ]
+    }
+    
 ];

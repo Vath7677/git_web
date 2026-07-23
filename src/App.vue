@@ -11,7 +11,7 @@ const activeLesson = computed(() => {
 const copyCode = (code, event) => {
   navigator.clipboard.writeText(code).then(() => {
     const btn = event.target
-    btn.textContent = 'Copied!'
+    btn.textContent = 'Copied!'  
     btn.classList.add('copied')
     setTimeout(() => {
       btn.textContent = 'Copy'
