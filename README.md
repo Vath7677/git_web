@@ -39,3 +39,9 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Deploy project after update
+
+```sh
+npm run deploy
+```
