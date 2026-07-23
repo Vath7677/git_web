@@ -3,6 +3,12 @@ import { ref, computed } from 'vue'
 import { gitLessons } from './data.js'
 
 const activeLessonId = ref(gitLessons[0].id)
+const isSidebarOpen = ref(false)
+
+const selectLesson = (id) => {
+  activeLessonId.value = id
+  isSidebarOpen.value = false
+}
 
 const activeLesson = computed(() => {
   return gitLessons.find(lesson => lesson.id === activeLessonId.value)
@@ -23,18 +29,33 @@ const copyCode = (code, event) => {
 
 <template>
   <div class="dashboard-container">
+
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <h1 class="sidebar-title" @click="selectLesson(gitLessons[0].id)" style="margin: 0; cursor: pointer;">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
+          Git Mastery
+        </h1>
+        <button class="hamburger-btn" @click="isSidebarOpen = true">
+          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+    </header>
+
+    <!-- Overlay -->
+    <div :class="['sidebar-overlay', { open: isSidebarOpen }]" @click="isSidebarOpen = false"></div>
+
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <h1 class="sidebar-title">
-        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" 
-        stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
+    <aside :class="['sidebar', { open: isSidebarOpen }]">
+      <h1 class="sidebar-title" @click="selectLesson(gitLessons[0].id)" style="cursor: pointer;">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/></svg>
         Git Mastery
       </h1>
+
       <nav>
         <ul class="nav-list">
           <li v-for="lesson in gitLessons" :key="lesson.id" class="nav-item">
             <button 
-              @click="activeLessonId = lesson.id"
+              @click="selectLesson(lesson.id)"
               :class="['nav-button', { active: activeLessonId === lesson.id }]"
             >
               {{ lesson.title }}
@@ -44,11 +65,12 @@ const copyCode = (code, event) => {
       </nav>
     </aside>
 
+
     <!-- Main Content -->
-    <main class="main-content">
-      <div v-if="activeLesson">
-        <header class="lesson-header">
-          <h2 class="lesson-title">{{ activeLesson.title }}</h2>
+      <main class="main-content">
+        <div class="content-wrapper" v-if="activeLesson">
+          <header class="lesson-header">
+            <h2 class="lesson-title">{{ activeLesson.title }}</h2>
           <p v-if="activeLesson.description" class="lesson-description">
             {{ activeLesson.description }}
           </p>
